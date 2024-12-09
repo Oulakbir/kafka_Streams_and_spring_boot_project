@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+<input type="text" id="userId" placeholder="Enter User ID" required>
+<button onclick="sendClick()">Send Click</button>
+
+<script>
+    function sendClick() {
+        const userId = document.getElementById("userId").value;
+
+        fetch("http://localhost:8088/click-producer", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userId)
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log("Click recorded successfully!");
+                } else {
+                    console.error("Failed to record click:", response.statusText);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+    }
+</script>
+</body>
+</html>
